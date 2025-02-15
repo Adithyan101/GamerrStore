@@ -1,0 +1,248 @@
+<%- include("../../views/partials/user/header") %>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Include jsPDFAutoTable plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <main class="main">
+        <link rel="stylesheet" href="/css/orderDetails.css">
+        <section class="order-details-section">
+            <div class="page-header breadcrumb-wrap mb-3">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="/" rel="nofollow">Home</a>
+                        <span>/</span> <a href="/orderHistory">My Orders</a>
+                        <span>/</span> Order Details
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <!-- Order Details -->
+                    <div class="col-lg-8">
+                        <h3>Order Details</h3>
+                        <table class="table table-borderless align-middle order-details-table">
+                            <tr>
+                                <td><strong>Order ID:</strong></td>
+                                <td>
+                                    <%= order._id %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Order Date:</strong></td>
+                                <td>
+                                    <%= new Date(order.createdOn).toLocaleDateString() %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Order Status:</strong></td>
+                                <td>
+                                    <%= order.status %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Payment Method:</strong></td>
+                                <td>
+                                    <%= order.paymentMethod %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Shipping Address:</strong></td>
+                                <td>
+                                    <% if (order.addressDetails) { %>
+                                        <p><strong>Name:</strong>
+                                            <%= order.addressDetails.name %>
+                                        </p>
+                                        <p><strong>Address:</strong>
+                                            <%= order.addressDetails.city %>, <%= order.addressDetails.state %> - <%=
+                                                        order.addressDetails.pincode %>
+                                        </p>
+                                        <p><strong>Phone:</strong>
+                                            <%= order.addressDetails.phone %>
+                                        </p>
+                                        <% } else { %>
+                                            <p>Address not available</p>
+                                            <% } %>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <!-- Ordered Products -->
+                        <h4 class="mt-4">Products</h4>
+                        <table class="table table-borderless align-middle">
+                            <% if (order.orderItems && order.orderItems.length> 0 && order) { %>
+                               
+                                
+                                <% for (let item of order.orderItems) { %>
+                                    <tr class="order-product-row">
+                                        <td class="product-info">
+                                            <p class="product-name">
+                                                <%= item.product.productName %>
+                                            </p>
+                                            <p class="seller-info" style="color:white">Brand: <%= item.product.brand %>
+                                            </p>
+                                        </td>
+                                        <td class="quantity">
+                                            <p>Quantity: <%= item.quantity %>
+                                            </p>
+                                        </td>
+                                        <td class="price">
+                                            ₹<%= order.totalPrice %>
+                                                <!-- Assuming price is per item, multiplied by quantity -->
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="4" class="text-center">No products in this order.</td>
+                                            </tr>
+                                            <% } %>
+                        </table>
+                    </div>
+
+
+
+
+
+                    <!-- Order Summary -->
+                    <div class="col-lg-4">
+                        <div class="card order-summary">
+                            <div class="card-body">
+                                <h5 class="order-details-heading">Order Summary</h5>
+
+                                <div class="summary-item">
+                                    <p>Shipping Charges:</p>
+                                    <p>₹0</p>
+                                </div>
+                                <div class="summary-item">
+                                    <p>Subtotal:</p>
+                                    <p>₹<%= order.totalPrice %>.00</p>
+                                </div>
+                                <hr>
+
+                                <td>
+                                    <% if (order.status==="Placed" || order.status==="Shipped"
+                                        ||order.status==="Delivered" || order.status==="Processing" ) { %>
+                                        <button onclick="downloadInvoice()" class="btn btn-primary w-100">Download
+                                            Invoice</button>
+                                        <% } else{%>
+                                            <p>Order is cancelled or payment is not done</p>
+                                            <%}%>
+                                </td>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+        function downloadInvoice() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Shop Details
+            const shopName = "Gamerr Gadgets";
+            const shopAddress = "123 Gaming Lane, Trivandrum, Kerala, India";
+            const shopContact = "+91-9876543210";
+            const shopEmail = "support@gamerrgadgets.com";
+
+            // Header Section: Shop Details
+            doc.setFontSize(20);
+            doc.text(shopName, 20, 20);
+            doc.setFontSize(12);
+            doc.text(shopAddress, 20, 30);
+            doc.text("Contact: " + shopContact, 20, 40);
+            doc.text("Email: " + shopEmail, 20, 50);
+
+            // Add a horizontal line below the shop details
+            doc.setDrawColor(0); // Black color
+            doc.setLineWidth(0.5); // Line thickness
+            doc.line(20, 55, 190, 55); // x1, y1, x2, y2
+
+            // Order Details Section
+            doc.setFontSize(16);
+            doc.text("Invoice", 20, 65);
+
+            doc.setFontSize(12);
+
+            // Helper Function to Retrieve Text by Label
+            function getTextByLabel(label) {
+                const elements = document.querySelectorAll('td strong');
+                for (let el of elements) {
+                    if (el.innerText.trim() === label) {
+                        const valueElement = el.parentElement.nextElementSibling;
+                        return valueElement ? valueElement.innerText.trim() : 'Not found';
+                    }
+                }
+                return 'Not found';
+            }
+
+            const orderId = getTextByLabel("Order ID:");
+            const orderDate = getTextByLabel("Order Date:");
+            const orderStatus = getTextByLabel("Order Status:");
+            const paymentMethod = getTextByLabel("Payment Method:");
+
+            let shippingAddress = "Not available";
+            const addressElements = document.querySelectorAll('td strong');
+            addressElements.forEach((el) => {
+                if (el.innerText.trim() === "Shipping Address:") {
+                    const addressDetails = el.parentElement.nextElementSibling;
+                    if (addressDetails) {
+                        const addressParagraphs = addressDetails.querySelectorAll('p');
+                        const name = addressParagraphs[0] ? addressParagraphs[0].innerText.split(':')[1].trim() : 'Not available';
+                        const address = addressParagraphs[1] ? addressParagraphs[1].innerText.split(':')[1].trim() : 'Not available';
+                        const phone = addressParagraphs[2] ? addressParagraphs[2].innerText.split(':')[1].trim() : 'Not available';
+                        shippingAddress = `${name}, ${address}, Phone: ${phone}`;
+                    }
+                }
+            });
+
+            doc.text("Order ID: " + orderId, 20, 75);
+            doc.text("Order Date: " + orderDate, 20, 85);
+            doc.text("Order Status: " + orderStatus, 20, 95);
+            doc.text("Payment Method: " + paymentMethod, 20, 105);
+            doc.text("Shipping Address: " + shippingAddress, 20, 115);
+
+            // Products Table
+            const productRows = [];
+            document.querySelectorAll('.order-product-row').forEach(row => {
+                const cols = Array.from(row.children).map(cell => cell.innerText.trim());
+                productRows.push(cols);
+            });
+
+            // Add Products Table to PDF
+            doc.text("Products:", 20, 125);
+            doc.autoTable({
+                head: [["Product Name", "Quantity", "Price"]],
+                body: productRows,
+                startY: 135,
+            });
+
+            // Correctly Retrieve Total Amount
+            const totalAmount = document.querySelector('.order-summary .summary-item:nth-child(2) p:last-child').innerText.split('₹')[1].trim();
+            const totalPrice = '<%-order.totalPrice %>'
+            console.log("Total Amount:", totalAmount);
+
+
+
+            // Add Total Amount to PDF
+            doc.text("Total Amount: ₹" + totalPrice, 20, doc.lastAutoTable.finalY + 10);
+
+            // Save the Invoice as a PDF
+            doc.save("invoice_" + orderId + ".pdf");
+        }
+
+
+    </script>
+
+    <%- include("../../views/partials/user/footer") %>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/contact-us.css">
+</head>
+<%- include('../../views/partials/user/header') %>
+<body>
+
+    <div class="Maincontainer">
+        <div class="page-header breadcrumb-wrap mb-3">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home /</a>
+                    <span></span> Contact Us<span></span>
+                </div>
+            </div>
+        </div>
+        <div class="contact-container">
+            
+            <h2 class="text-center">Contact Us</h2>
+            <p class="text-center">We'd love to hear from you!</p>
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-control" placeholder="Enter your name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Your Email</label>
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-control" rows="4" placeholder="Write your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-custom w-100">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+<%- include('../../views/partials/user/footer') %>
+</html>

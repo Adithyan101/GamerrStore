@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="/css/orderConfirmation.css">
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="icon">✔</div>
+        <h2>Thank You for Your Order!</h2>
+        <p>Your order has been placed successfully.</p>
+        <p><strong>Order ID:</strong> <%= orderId %></p>
+        <p><strong>Status:</strong> <%= orderStatus %></p>
+        <p>We will contact you shortly to confirm your order.</p>
+        <a href="/orderDetails?id=<%= orderId %>" class="btn">View Order</a>
+        <a href="/shop" class="btn">Continue Shopping</a>
+    </div>
+</body>
+</html>

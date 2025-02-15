@@ -1,0 +1,217 @@
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="/css/signup.css">
+
+</head>
+<%- include("../../views/partials/user/header") %>
+
+  <body>
+    
+    <!-- Signup Form -->
+    <div class="signup-container text-center">
+      <h2 class="mb-4">Sign Up</h2>
+      <form id="signform" method="post" action="/signup">
+        <div class="mb-3">
+          <input name="name" type="text" class="form-control" id="name" placeholder="Full Name">
+        </div>
+        <div id="error1" class="error-message"></div>
+        <div class="mb-3">
+          <input name="email" type="e-mail" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div id="error2" class="error-message"></div>
+        <div class="mb-3">
+          <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div id="error3" class="error-message"></div>
+        <div class="mb-3">
+          <input name="cPassword" type="password" class="form-control" id="confirm-password"
+            placeholder="Confirm Password">
+        </div>
+        <div id="error4" class="error-message"></div>
+        <div class="mb-3">
+          <input name="phone" type="tel" class="form-control" id="phone" placeholder="Phone Number">
+        </div>
+        <div class="mb-3">
+          <input name="referralCode" type="text" class="form-control" id="referalCode" placeholder="Refferal Code">
+        </div>
+
+        <% if(locals.message && message.length>0){%>
+          <div class="alert alert-danger text-center">
+            <%=message %>
+          </div>
+          <% } %>
+            <div id="error5" class="error-message"></div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+      </form>
+
+      <hr class="my-4 text-light">
+
+
+
+      <!-- Login Link -->
+      <p class="mt-4">
+        Already Registered?
+        <a href="/login" class="login-link">Login</a>
+      </p>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+
+      const nameid = document.getElementById("name")
+      const emailid = document.getElementById("email")
+      const phoneid = document.getElementById("phone")
+      const passid = document.getElementById("password")
+      const cPassid = document.getElementById("confirm-password")
+      const error1 = document.getElementById("error1")
+      const error2 = document.getElementById("error2")
+      const error3 = document.getElementById("error3")
+      const error4 = document.getElementById("error4")
+      const error5 = document.getElementById("error5")
+      const signform = document.getElementById("signform")
+
+      function nameValidateChecking(e) {
+
+        const nameval = nameid.value;
+        const namepattern = /^[A-Za-z\s]+$/; //regex code checking name pattern
+
+        if (nameval.trim() === "") {    //  to trim if there is any empty space
+          error1.style.display = "block";
+          error1.innerHTML = "Please enter a valid name."
+        } else if (!namepattern.test(nameval)) {  // to check if the patterm matches with entered name
+          error1.style.display = "block";
+          error1.innerHTML = "Name can only contain alphabets and spaces."
+        } else {
+          error1.style.display = "none"
+          error1.innerHTML = ""
+        }
+      }
+
+      function emailValidateChecking(e) {
+
+        const emailval = emailid.value;
+        const emailpattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; //email patterm
+
+        if (!emailpattern.test(emailval)) { //checking email pattern
+          error2.style.display = "block"
+          error2.innerHTML = "Invalid format"
+        } else {
+          error2.style.display = "none"
+          error2.innerHTML = ""
+        }
+      }
+
+
+      function phoneValidateChecking(e) {
+
+        const phoneval = phoneid.value;
+
+        if (phoneval.trim() === "") { //to check if spaces are typed 
+          error3.style.display = "block"
+          error3.innerHTML = "Enter valid phone number"
+        } else if (phoneval.length < 10 || phoneval.length > 10) { //to check if ph contain 10 digits
+          error3.style.display = "block"
+          error3.innerHTML = "Enter 10 digit!"
+        } else {
+          error3.style.display = "none"
+          error3.innerHTML = ""
+        }
+      }
+
+
+      function passValidateChecking(e) {
+        const passval = passid.value;
+        const cpassval = cPassid.value
+        const alpha = /[a-zA-Z]/; //  alphabets regex
+        const digit = /\d/; // numerical values regex
+
+        if (passval.length < 8) { //to check if password length is lt 8 
+          error4.style.display = "block"
+          error4.innerHTML = "Should contain atleast 8 characters!"
+        } else if (!alpha.test(passval) || !digit.test(passval)) {
+          error4.style.display = "block"
+          error4.innerHTML = "Should contain numbers and alphabets!"
+        } else {
+          error4.style.display = "none"
+          error4.innerHTML = ""
+        }
+
+        if (passval !== cpassval) { //to check if pass and cpass matches:
+          error5.style.display = "block"
+          error5.innerHTML = "Passwords do not match!"
+        } else {
+          error5.style.display = "none"
+          error5.innerHTML = ""
+        }
+      }
+
+
+      const referalCodeId = document.getElementById("referalCode");
+      const error6 = document.createElement("div");
+      error6.className = "error-message";
+      referalCodeId.parentElement.appendChild(error6);
+
+      function referalCodeValidateChecking(e) {
+    const referalCodeVal = referalCodeId.value.trim();
+
+    if (referalCodeVal !== "" && !/^[A-Za-z0-9]+$/.test(referalCodeVal)) {
+        // Validate only if a referral code is entered
+        error6.style.display = "block";
+        error6.innerHTML = "Referral code can only contain letters and numbers.";
+    } else {
+        // Hide the error if the field is empty (optional field) or valid
+        error6.style.display = "none";
+        error6.innerHTML = "";
+    }
+}
+
+
+
+      document.addEventListener("DOMContentLoaded", function () {
+        signform.addEventListener("submit", function (e) {
+
+          nameValidateChecking();
+          emailValidateChecking();
+          phoneValidateChecking();
+          passValidateChecking();
+          referalCodeValidateChecking()
+
+          //ella field id undo enn ensure cheyyan vendi ullath
+
+          if (
+            !nameid ||
+            !emailid ||
+            !phoneid ||
+            !passid ||
+            !error1 ||
+            !error2 ||
+            !error3 ||
+            !error4 ||
+            !error5 ||
+            !signform
+          ) {
+            console.log("one or more elements not found");
+          }
+          //erasil value undel form submision prevent cheyyan vendi ullath
+          if (
+            error1.innerHTML ||
+            error2.innerHTML ||
+            error3.innerHTML ||
+            error4.innerHTML ||
+            error5.innerHTML
+          ) {
+            e.preventDefault()
+          }
+
+        })
+      })
+
+
+    </script>
+
+  </body>

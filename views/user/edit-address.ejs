@@ -1,0 +1,71 @@
+<%- include("../../views/partials/user/header") %>
+    <div class="container mt-5" style="margin-top: 100px;">
+
+        <h3 class="text-center mb-4" style="color: white;">Edit User Address</h3> <!-- Centered and styled heading -->
+        <div class="page-header breadcrumb-wrap mb-3">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">Home /</a>
+                    <span></span><a href="/userProfile">Profile</a> /<span></span> Edit Address
+                </div>
+            </div>
+        </div>
+        <form id="addressForm" method="POST" action="/editAddress?id=<%= address._id.toLocaleString() %>"
+            class="border-0 p-4" style="background-color: #333; color: white; border-radius: 10px;">
+            <!-- Added background and styling -->
+            <div class="row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="addressType">Address Type:</label>
+                    <select class="form-control border-3 text-white bg-dark" id="addressType" name="addressType"
+                        required>
+                        <option value="" disabled <% if (!address.addressType) { %>selected<% } %>>Select Address Type
+                        </option>
+                        <option value="home" <% if (address.addressType==='home' ) { %>selected<% } %>>Home</option>
+                        <option value="work" <% if (address.addressType==='work' ) { %>selected<% } %>>Work</option>
+                        <option value="other" <% if (address.addressType==='other' ) { %>selected<% } %>>Other</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control border-3 text-white bg-dark" value="<%= address.name %>"
+                        id="name" name="name">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="city">City:</label>
+                    <input type="text" class="form-control border-3 text-white bg-dark" id="city"
+                        value="<%= address.city %>" name="city">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="landMark">Landmark:</label>
+                    <input type="text" class="form-control border-3 text-white bg-dark" value="<%= address.landMark %>"
+                        id="landMark" name="landMark">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="state">State:</label>
+                    <input type="text" class="form-control border-3 text-white bg-dark" value="<%= address.state %>"
+                        id="state" name="state">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="pincode">Pincode:</label>
+                    <input type="number" class="form-control border-3 text-white bg-dark" value="<%= address.pincode %>"
+                        id="pincode" name="pincode">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="phone">Phone:</label>
+                    <input type="number" class="form-control border-3 text-white bg-dark" id="phone"
+                        value="<%= address.phone %>" name="phone">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" id="submitButton" class="btn btn-primary px-5 py-2">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script href="/js/edit-address.js"></script>
+    <link rel="stylesheet" href="/css/edit-address.css">

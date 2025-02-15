@@ -1,0 +1,267 @@
+<%- include("../../views/partials/user/header") %>
+    
+
+    <main class="main">
+        <link rel="stylesheet" href="/css/orderHistory.css">
+        <section class="order-section">
+            <div class="page-header breadcrumb-wrap mb-3">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="/" rel="nofollow">Home /</a>
+                        <span></span> My Orders <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <!-- Order History Items -->
+                    <div class="col-lg-8">
+                        <h3>My Orders (<%= orders?.length || 0 %>)</h3>
+                        <table class="table table-borderless align-middle order-table">
+                            <% if (orders?.length> 0) { %>
+                                <% for (let order of orders) { %>
+                                    <tr>
+                                        <!-- Order Date and Status -->
+                                        <td class="order-info">
+                                            <p><strong>Order ID:</strong>
+                                                <%= order._id %>
+                                            </p>
+                                            <p><strong>Date:</strong>
+                                                <%= new Date(order.createdOn).toLocaleDateString() %>
+                                            </p>
+                                            <p><strong>Status:</strong> <span id="order-status-<%= order._id %>">
+                                                    <%= order.status %>
+                                                </span></p>
+                                        </td>
+
+                                        <!-- Total Price -->
+                                        <td class="price">
+                                            ₹<%= order.totalPrice %>
+                                        </td>
+
+                                        <!-- View Order Details Button -->
+                                        <td>
+                                            <a href="/orderDetails?id=<%= order._id %>" class="btn btn-capsule">View
+                                                Details</a>
+                                        </td>
+
+
+
+                                        <!-- Cancel Button -->
+                                        <% if (order.status !=='Cancelled' && order.status !=='Returned' ) { %>
+                                            <td>
+                                                <button id="cancel-button-<%= order._id %>"
+                                                    onclick="cancelOrder('<%= order._id %>')" class="btn btn-capsule">
+                                                    Cancel Order
+                                                </button>
+                                            </td>
+                                            <% } %>
+
+                                                <td>
+                                                    <!-- Continue Payment Button -->
+                                                    <% if (order.status==="Payment Pending" ) { %>
+                                                        <button id="continuePaymentButton" orderId="<%= order._id %>"
+                                                            class="btn btn-capsule">
+                                                            Continue Payment
+                                                        </button>
+                                                        <% } %>
+
+                                                </td>
+
+
+
+
+                                                <!-- Return Button -->
+                                                <% if (order.status==='Delivered' ) { %>
+                                                    <td>
+                                                        <button id="return-button-<%= order._id %>"
+                                                            onclick="returnOrder('<%= order._id %>')"
+                                                            class="btn btn-capsule">
+                                                            Return Order
+                                                        </button>
+                                                    </td>
+                                                    <% } %>
+                                    </tr>
+                                    <% } %>
+
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="4" class="text-center">You have no orders yet.</td>
+                                            </tr>
+                                            <% } %>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Include jsPDF library -->
+
+    <%- include("../../views/partials/user/footer") %>
+
+        <script>
+
+            async function cancelOrder(orderId) {
+                // Show confirmation dialog
+                const confirmation = await Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'Do you want to cancel this order? This action cannot be undone.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, cancel it!',
+                    cancelButtonText: 'No, keep it',
+                });
+
+                if (confirmation.isConfirmed) {
+                    try {
+                        // Send the request to cancel the order
+                        const response = await fetch(`/cancelOrder?id=${orderId}`, {
+                            method: 'GET', // Assuming you use GET to cancel
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
+
+                        const result = await response.json();
+
+                        // Check if the order was cancelled successfully
+                        if (response.ok) {
+                            // Show SweetAlert success message
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Order Cancelled',
+                                text: 'Your order has been cancelled successfully.',
+                            });
+
+                            // Update the order status in the DOM
+                            const orderStatusElement = document.getElementById(`order-status-${orderId}`);
+                            if (orderStatusElement) {
+                                orderStatusElement.textContent = "Cancelled"; // Update status text
+                                orderStatusElement.style.color = "red"; // Change the color to red
+                            }
+
+                            // Disable the cancel button after cancellation
+                            const cancelButton = document.getElementById(`cancel-button-${orderId}`);
+                            if (cancelButton) {
+                                cancelButton.disabled = true;
+                            }
+                        } else {
+                            // Show error message
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: result.message,
+                            });
+                        }
+                    } catch (error) {
+                        // Handle errors
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred while cancelling the order.',
+                        });
+                    }
+                }
+            }
+
+
+
+            async function returnOrder(orderId) {
+                try {
+                    // Send the request to return the order
+                    const response = await fetch(`/returnOrder?id=${orderId}`, {
+                        method: 'GET', // Assuming GET is used for simplicity; use POST for better REST practices
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        // Show SweetAlert success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Return Initiated',
+                            text: 'Your return request has been successfully initiated.',
+                        });
+
+                        // Update the order status in the DOM
+                        const orderStatusElement = document.getElementById(`order-status-${orderId}`);
+                        if (orderStatusElement) {
+                            orderStatusElement.textContent = "Return Request";
+                            orderStatusElement.style.color = "orange";
+                        }
+
+                        // Disable the return button after the request
+                        const returnButton = document.getElementById(`return-button-${orderId}`);
+                        if (returnButton) {
+                            returnButton.disabled = true;
+                        }
+                    } else {
+                        // Show error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: result.message,
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while initiating the return.',
+                    });
+                }
+            }
+
+            document.getElementById("continuePaymentButton").addEventListener("click", async function () {
+                const orderId = document.getElementById("continuePaymentButton").getAttribute("orderId");
+
+                try {
+                    const response = await fetch(`/retryPayment?orderId=${orderId}`, {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    });
+
+                    const result = await response.json();
+                    console.log(result);
+
+
+                    if (result.success) {
+                        // Initiate Razorpay payment
+                        const options = {
+                            key: result.key, // Replace with your Razorpay key
+                            amount: result.order.amount * 100, // Amount in paise
+                            currency: "INR",
+                            name: "Gamerr E-commerce",
+                            description: "Order Payment",
+                            order_id: result.order.id, // Order ID from Razorpay
+                            callback_url: "/orderConfirmation",
+                            prefill: {
+                                name: "<%= user.name %>", // Prefill customer details
+                                email: "<%= user.email %>",
+                            },
+                        };
+
+                        const rzp = new Razorpay(options);
+                        rzp.open();
+                    } else {
+                        alert("Failed to initiate payment. Please try again.");
+                        console.log(result);
+
+                    }
+                } catch (error) {
+                    console.error("Error initiating payment:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        </script>

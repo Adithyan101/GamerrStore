@@ -1,0 +1,245 @@
+.save-percentage {
+    font-size: 1.2rem;
+    /* Slightly larger font */
+    font-weight: bold;
+    /* Bold text */
+    color: #28a745;
+    /* Success green */
+    background-color: #101110;
+    /* Light green background */
+    padding: 5px 10px;
+    /* Add some padding */
+    border-radius: 8px;
+    /* Rounded corners */
+    display: inline-block;
+    /* Ensure it's an inline element */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Slight shadow for pop */
+    text-transform: uppercase;
+    /* Optional: Makes the text uppercase */
+}
+
+/* Main image styling */
+.main-image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Thumbnail gallery */
+.thumbnail-gallery {
+    display: flex;
+    gap: 10px;
+}
+
+.thumbnail-img {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.thumbnail-img:hover {
+    transform: scale(1.1);
+}
+
+/* Product details */
+.product-details h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Price styling */
+.text-danger {
+    font-size: 2.5rem;
+    /* Make the price larger */
+    font-weight: bold;
+    color: white !important;
+    /* Set the price to white */
+    /* background: linear-gradient(45deg, #ff5722, #ff9800); */
+    /* Add a gradient background for more pop */
+    padding: 10px 0px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+/* Strikethrough price */
+.text-muted del {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+/* Specification table */
+.table {
+    margin-top: 20px;
+    background-color: #020202;
+    border: 2px solid #fff;
+    /* Silver background */
+    border-radius: 8px;
+    /* Add rounded corners */
+    padding: 10px;
+    overflow: hidden;
+    stroke: aliceblue;
+}
+
+.table th {
+    background-color: #000000;
+    /* Slightly lighter silver for headers */
+    font-weight: bold;
+    color: #fff;
+    stroke: aliceblue;
+}
+
+.table td {
+    background-color: #000000;
+    /* Light silver for cells */
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #000000;
+}
+
+.btn-success {
+    background-color: #000000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .text-danger {
+        font-size: 2rem;
+        /* Slightly smaller on small screens */
+    }
+}
+
+#zoomContainer {
+    position: absolute;
+    display: none;
+    border: 2px solid #ddd;
+    background: #fff;
+    z-index: 1000;
+    overflow: hidden;
+    width: 200px;
+    /* Adjust as needed */
+    height: 200px;
+    /* Adjust as needed */
+}
+
+#zoomedImage {
+    position: absolute;
+    width: 200%;
+    /* Adjust zoom level */
+    height: 200%;
+    /* Adjust zoom level */
+    transition: transform 0.1s ease-in-out;
+}
+
+
+.related-products {
+    margin-top: 10px;
+}
+
+.related-products .card {
+    border: none;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    background-color: #000000;
+}
+
+.related-products .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.related-products .card img {
+    height: 180px;
+    /* Increase image visibility */
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.related-products .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.related-products .text-danger {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background-color: #5a5a5a;
+    /* Slightly lighter gray on hover */
+}
+
+.breadcrumb-wrap {
+    background-color: #000000;
+    padding: 15px 0;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: #b0b0b0;
+}
+
+.breadcrumb a {
+    color: #ffffff;
+    text-decoration: none;
+    position: relative;
+    margin: 0 5px;
+}
+
+.breadcrumb a:hover {
+    color: #b0b0b0;
+    /* Light gray on hover */
+}
+
+.breadcrumb span {
+    margin: 0 5px;
+    color: #7a7a7a;
+    /* Gray for separators */
+}
+
+.breadcrumb a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #4d4d4d;
+    /* Gray underline */
+    left: 0;
+    bottom: -2px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.breadcrumb a:hover::after {
+    transform: scaleX(1);
+}
+
+#quantity {
+    color: black;
+    /* Black text */
+    background-color: white;
+    /* White background */
+    text-align: center;
+    /* Center the text */
+}
+
+/* Hide the arrows in the input */
+#quantity::-webkit-outer-spin-button,
+#quantity::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

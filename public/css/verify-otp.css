@@ -1,0 +1,78 @@
+ /* General Reset */
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212;
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+
+  .container {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input[type="text"] {
+    background: #000;
+    color: #fff;
+    border: none;
+    border-bottom: 1px solid #555;
+    padding: 10px;
+    margin: 10px 0;
+    outline: none;
+  }
+
+  button {
+    background-color: #d1a082;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #b6886c;
+  }
+
+  .timer {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .resend {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .resend a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .resend a:hover {
+    text-decoration: underline;
+  }

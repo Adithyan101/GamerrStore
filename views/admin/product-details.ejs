@@ -1,0 +1,224 @@
+<%- include("../../views/partials/user/header") %>
+
+    <main class="main">
+
+        <link rel="stylesheet" href="/css/product-details.css">
+
+        <section class="mt-50 mb-50">
+            <div class="page-header breadcrumb-wrap mb-3">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="/" rel="nofollow">Home</a>/
+                        <span></span><a href="/shop" rel="nofollow">Shop </a>/<span></span> Product Details
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <!-- Left: Image Gallery -->
+                    <div class="col-md-5">
+                        <div class="main-image mb-3">
+                            <img src="/uploads/re-image/<%= product.productImage[0] %>" id="mainImage"
+                                alt="Main Product Image" class="img-fluid border">
+                        </div>
+                        <div class="thumbnail-gallery d-flex gap-2">
+                            <% product.productImage.forEach((img, index)=> { %>
+                                <img src="/uploads/re-image/<%= img %>" class="thumbnail-img img-thumbnail"
+                                    onclick="changeMainImage('<%= img %>')" alt="Thumbnail">
+                                <% }); %>
+                        </div>
+                    </div>
+
+                    <!-- Right: Product Info -->
+                    <div class="col-md-7">
+                        <h3>
+                            <%= product.productName %>
+                        </h3>
+                        <div class="text-success fw-bold mt-3">Special Price</div>
+                        <div class="price-container d-flex align-items-center gap-2">
+                            <h4 class="text-danger mb-0">₹<%= product.salePrice %></h4>
+                            <p class="text-muted mb-0"><del>₹<%= product.regularPrice %></del></p>
+                        </div>
+
+                        <% if (product.regularPrice > product.salePrice) { %>
+                            <p class="text-success fw-bold save-percentage">You save 
+                                <%= Math.round(((product.regularPrice - product.salePrice) / product.regularPrice) * 100) %>%
+                            </p>
+                        <% } %>
+                        <p class="text-secondary">Inclusive of all taxes</p>
+
+                        <div class="mt-4">
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-truck"></i> Free shipping on orders over ₹500</li>
+                                <li><i class="bi bi-arrow-repeat"></i> 7 Days Replacement Policy</li>
+                            </ul>
+                        </div>
+
+                        <h5 class="mt-4">Specification</h5>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Color</th>
+                                    <td>
+                                        <%= product.color || 'N/A' %>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Brand</th>
+                                    <td>
+                                        <%= product.brand || 'N/A' %>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Available Stock</th>
+                                    <td>
+                                        <%= product.quantity %> pcs
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h5 class="mt-4">About this Product</h5>
+                        <p class="text-muted">
+                            <%= product.description %>
+                        </p>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <!-- Add to Cart Button w----->
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-secondary" type="button" id="decrease">-</button>
+                                    <input type="number" class="form-control" id="quantity" value="1" min="1" step="1">
+                                    <button class="btn btn-outline-secondary" type="button" id="increase">+</button>
+                                </div>
+                            </div>
+
+                            <button productId="<%= product._id %>" class="btn btn-primary" type="button"
+                                id="addToCart">Add to Cart</button>
+                            <button class="btn btn-success">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="related-products mt-5">
+                <div class="container">
+                    <h4 class="mb-4">Related Products</h4>
+                    <div class="row">
+                        <% relatedProducts.forEach((related)=> { %>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="/uploads/re-image/<%= related.productImage[0] %>"
+                                        alt="<%= related.productName %>" class="card-img-top">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            <%= related.productName %>
+                                        </h6>
+                                        <p class="text-danger mb-2">₹<%= related.salePrice %>
+                                        </p>
+                                        <a href="/productDetails?id=<%= related._id %>"
+                                            class="btn btn-primary btn-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/productDetails.js"></script>
+
+    <%- include("../../views/partials/user/footer") %>
+
+        <!-- Zoom container -->
+        <div id="zoomContainer" class="zoom-container">
+            <img id="zoomedImage" src="" alt="Zoomed Image">
+        </div>
+
+
+
+        <!-- JavaScript for Image Zoom -->
+        <script>
+            function activateZoom(event) {
+                var zoomContainer = document.getElementById('zoomContainer');
+                var zoomedImage = document.getElementById('zoomedImage');
+                var mainImage = document.getElementById('mainImage');
+
+                // Set the zoom image source to the data-zoom attribute of the main image
+                zoomedImage.src = mainImage.getAttribute('data-zoom');
+                zoomContainer.style.display = 'block';  // Show the zoom container
+            }
+
+            function zoomImage(event) {
+                var zoomContainer = document.getElementById('zoomContainer');
+                var zoomedImage = document.getElementById('zoomedImage');
+                var mainImage = document.getElementById('mainImage');
+
+                var containerRect = zoomContainer.getBoundingClientRect();
+                var imageRect = mainImage.getBoundingClientRect();
+
+                var offsetX = event.clientX - imageRect.left;
+                var offsetY = event.clientY - imageRect.top;
+
+                // Calculate the zoomed image's position based on mouse coordinates
+                var xPercent = (offsetX / mainImage.width) * 100;
+                var yPercent = (offsetY / mainImage.height) * 100;
+
+                zoomedImage.style.transform = `translate(-${xPercent}%, -${yPercent}%)`;
+                zoomContainer.style.top = `${event.pageY + 10}px`;
+                zoomContainer.style.left = `${event.pageX + 10}px`;
+            }
+
+            function deactivateZoom() {
+                var zoomContainer = document.getElementById('zoomContainer');
+                zoomContainer.style.display = 'none';  // Hide the zoom container
+            }
+
+            function changeMainImage(imageSrc) {
+                var mainImage = document.getElementById('mainImage');
+                var zoomedImage = document.getElementById('zoomedImage');
+                var zoomContainer = document.getElementById('zoomContainer');
+
+                // Update the main image source
+                mainImage.src = '/uploads/re-image/' + imageSrc;
+                mainImage.setAttribute('data-zoom', '/uploads/re-image/' + imageSrc);
+
+                // Reset zoom on image change
+                zoomedImage.src = '/uploads/re-image/' + imageSrc;
+                zoomContainer.style.display = 'none';  // Hide the zoom container initially
+
+                // Re-enable zoom functionality on the new image
+                // Remove any existing event listeners before adding them again
+                mainImage.removeEventListener('mousemove', zoomImage);
+                mainImage.removeEventListener('mouseover', activateZoom);
+                mainImage.removeEventListener('mouseleave', deactivateZoom);
+
+                // Reattach the zoom event listeners
+                mainImage.addEventListener('mousemove', zoomImage);
+                mainImage.addEventListener('mouseover', activateZoom);
+                mainImage.addEventListener('mouseleave', deactivateZoom);
+            }
+
+            document.getElementById('increase').addEventListener('click', function () {
+                const quantityInput = document.getElementById('quantity');
+                let currentValue = parseInt(quantityInput.value);
+                quantityInput.value = currentValue + 1;
+            });
+
+            document.getElementById('decrease').addEventListener('click', function () {
+                const quantityInput = document.getElementById('quantity');
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+
+
+        </script>

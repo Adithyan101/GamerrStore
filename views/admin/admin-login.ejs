@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/admin-login.css">
+  <title>Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Include SweetAlert -->
+ 
+</head>
+<body>
+  <div class="form-container">
+    <h2>Admin Login</h2>
+    <form id="loginForm" action="/admin/login" method="POST">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="adminEmail" type="email" name="email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="adminPassword" type="password" name="password" placeholder="Enter your password">
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+
+  <% if (locals.message && message.length > 0) { %>
+  <script>
+     
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: '<%= message %>',
+        confirmButtonColor: '#d2a07f'
+      });
+  
+    </script>
+    <% } %>
+
+      <script>
+    // Client-side validation script with SweetAlert
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+
+      // Validate email
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      if (!emailPattern.test(email)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Email',
+          text: 'Please enter a valid email address.',
+          confirmButtonColor: '#d2a07f'
+        });
+        event.preventDefault();
+        return false;
+      }
+
+      // Validate password (ensure it's not empty)
+      if (password.trim() === "") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Empty Password',
+          text: 'Password cannot be empty.',
+          confirmButtonColor: '#d2a07f'
+        });
+        event.preventDefault();
+        return false;
+      }
+    });
+  </script>
+    
+</body>
+</html>

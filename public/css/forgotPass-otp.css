@@ -1,0 +1,101 @@
+body {
+    background-color: black; /* Background color matching the theme */
+    color: white; /* Default text color */
+    font-family: Arial, sans-serif; /* Clean font style */
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .login_wrap {
+    background-color: #121212; /* Form background */
+    border: 1px solid #444; /* Subtle border */
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
+    text-align: center;
+  }
+
+  .login_wrap h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #666; /* Input border */
+    border-radius: 5px;
+    background-color: #1c1c1c; /* Input background */
+    color: white; /* Input text color */
+    margin-bottom: 15px;
+  }
+
+  .form-control::placeholder {
+    color: #bbb; /* Placeholder text color */
+  }
+
+  .form-control:focus {
+    border-color: #a88365; /* Highlight color on focus */
+    outline: none;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 10px;
+    background-color: #a88365; /* Button color */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background-color: #956c50; /* Button hover color */
+  }
+
+  .btn-link {
+    color: #bbb; /* Link color */
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .btn-link:hover {
+    color: white;
+    text-decoration: underline;
+  }
+
+  .text-muted a {
+    color: #4a90e2; /* Link color for "Login now" */
+    text-decoration: none;
+  }
+
+  .text-muted a:hover {
+    text-decoration: underline;
+  }
+
+  .alert {
+    background-color: #d32f2f; /* Error background */
+    color: white; /* Error text color */
+    padding: 10px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+  }
+
+  .otp-timer-wrapper {
+    margin-top: 10px;
+  }
+
+  .otp-timer {
+    color: #bbb; /* Timer text color */
+  }

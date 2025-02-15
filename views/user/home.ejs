@@ -1,0 +1,307 @@
+<%- include("../../views/partials/user/header") %>
+  
+  <section class="py-0" id="header">
+    <link rel="stylesheet" href="/css/home.css">
+    <div class="bg-holder"
+      style="background-image:url(assets/img/gallery/banner.jpeg);background-position:left top;background-size:contain;">
+    </div>
+    <!--/.bg-holder-->
+
+    <div class="container">
+      <div class="row align-items-center min-vh-75 min-vh-xl-100">
+        <div class="col-md-8 col-lg-6 text-md-start text-center">
+          <h1 class="display-1 lh-sm text-uppercase text-light">All Kind Of Gaming Products<br
+              class="d-none d-xxl-block" /> At Your Fingertips</h1>
+          <div class="pt-4"><a class="btn btn-sm btn-outline-primary me-3" href="/shop">SHOP</a><a
+              class="btn btn-sm btn-outline-primary" href="#">REQUEST VIRTUAL</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="bg-black py-8 pt-0" id="store">
+    <div class="bg-holder" style="background-image:url(assets/img/gallery/our-store.png);background-size:contain;">
+    </div>
+    <!--/.bg-holder-->
+
+    <div class="container-lg">
+      <div class="row flex-center">
+        <div class="col-6 order-md-0 text-center text-md-start"></div>
+        <div class="col-sm-10 col-md-6 col-lg-6 text-center text-md-start">
+          <div class="col-4 position-relative ms-auto py-5"><a class="carousel-control-prev carousel-icon z-index-2"
+              href="#carouselExampleFade" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"
+                aria-hidden="true"></span><span class="visually-hidden">Previous</span></a><a
+              class="carousel-control-next carousel-icon z-index-2" href="#carouselExampleFade" role="button"
+              data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span
+                class="visually-hidden">Next</span></a></div>
+          <div class="carousel slide carousel-fade" id="carouselExampleFade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row h-100">
+                  <div class="col-12">
+                    <h5 class="fs-3 fs-lg-5 lh-sm text-uppercase">Our store</h5>
+                    <p class="my-4 pe-xl-5">Memphis clinched a spot in the play-in tournament with the victory, but the
+                      fight for seeding continues. The race for the No. 8 spot in the West -- and the safety net of
+                      having to win just one of two games to make the playoffs -- could come down to the regular seasons
+                      final day, when Memphis and Golden State meet. The good thing for the Grizzlies is they dont have
+                      to leave home until that matchup as they have games against Dallas and two against Sacramento
+                      before the finale.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row h-100">
+                  <div class="col-12">
+                    <h5 class="fs-3 fs-lg-5 lh-sm text-uppercase">Our store</h5>
+                    <p class="my-4 pe-xl-5">Memphis clinched a spot in the play-in tournament with the victory, but the
+                      fight for seeding continues. The race for the No. 8 spot in the West -- and the safety net of
+                      having to win just one of two games to make the playoffs -- could come down to the regular seasons
+                      final day, when Memphis and Golden State meet. The good thing for the Grizzlies is they dont have
+                      to leave home until that matchup as they have games against Dallas and two against Sacramento
+                      before the finale.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row h-100">
+                  <div class="col-12">
+                    <h5 class="fs-3 fs-lg-5 lh-sm text-uppercase">Our store</h5>
+                    <p class="my-4 pe-xl-5">Memphis clinched a spot in the play-in tournament with the victory, but the
+                      fight for seeding continues. The race for the No. 8 spot in the West -- and the safety net of
+                      having to win just one of two games to make the playoffs -- could come down to the regular seasons
+                      final day, when Memphis and Golden State meet. The good thing for the Grizzlies is they dont have
+                      to leave home until that matchup as they have games against Dallas and two against Sacramento
+                      before the finale.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="py-0 pb-6" id="collections">
+    <div class="container">
+      <div class="row h-100">
+        <div class="col-lg-7 mt-7">
+          <h5 class="fs-3 fs-lg-5 lh-sm mb-0 text-uppercase">Products</h5>
+        </div>
+        <div class="col-12">
+          <nav>
+            <div class="nav nav-tabs watch-tabs mb-4 justify-content-end" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-latest-tab" data-bs-toggle="tab" data-bs-target="#nav-latest"
+                type="button" role="tab" aria-controls="nav-latest" aria-selected="true">LATEST </button>
+              <button class="nav-link" id="nav-popular-tab" data-bs-toggle="tab" data-bs-target="#nav-popular"
+                type="button" role="tab" aria-controls="nav-popular" aria-selected="false">POPULAR</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <!-- Loop through products for the latest tab -->
+            <div class="tab-pane fade show active" id="nav-latest" role="tabpanel" aria-labelledby="nav-latest-tab">
+              <div class="carousel slide" id="carouselLatest" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <% for (let i = 0; i < products.length; i += 3) { %>
+                    <!-- Carousel item -->
+                    <div class="carousel-item <%= i === 0 ? 'active' : '' %>" data-bs-interval="5000">
+                      <div class="row h-100 align-items-center">
+                        <% for (let j = i; j < i + 3 && j < products.length; j++) { %>
+                          <!-- Product Card -->
+                          <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
+                            <div class="card bg-black text-white p-6 pb-8">
+                              <a href="/productDetails?id=<%= products[j]._id %>" class="stretched-link">
+                                <img 
+                                  class="card-img" 
+                                  src="/uploads/re-image/<%= products[j].productImage[0] %>" 
+                                  alt="<%= products[j].productName %>" 
+                                />
+                              </a>
+                              <div class="card-img-overlay bg-dark-gradient d-flex flex-column-reverse align-items-center">
+                                <!-- Product Name -->
+                                <h6 class="text" style="color:rgb(127, 129, 129)">
+                                  <%= products[j].productName %>
+                                </h6>
+                              
+                                <!-- Price Section -->
+                                <div class="d-flex justify-content-center align-items-center">
+                                  <h4 class="text-light me-2">₹<%= products[j].salePrice %></h4>
+                                  <h4 class="text-muted"><del>₹<%= products[j].regularPrice %></del></h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <% } %>
+                      </div>
+                    </div>
+                  <% } %>
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselLatest" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselLatest" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          
+            <!-- Popular Tab (Example for Future Extension) -->
+            <div class="tab-pane fade" id="nav-popular" role="tabpanel" aria-labelledby="nav-popular-tab">
+              <p>Popular products can be rendered here similarly...</p>
+            </div>
+          </div>
+          
+      </div>
+  </section>
+
+
+  <!-- ============================================-->
+  <!-- <section> begin ============================-->
+  <section class="py-6">
+
+    <div class="container">
+      <div>
+        <img src="assets/img/gallery/ROG.png" class="full-width-img"> 
+      </div>
+    </div>
+    <!-- end of .container-->
+
+  </section>
+  <!-- <section> close ============================-->
+  
+  <!-- ============================================-->
+  <!-- <section> begin ============================-->
+  <section id="testimonial">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 mx-auto text-center my-5">
+          <h5 class="fs-3 fs-lg-5 lh-sm mb-0 text-uppercase">what customers are saying</h5>
+        </div>
+      </div>
+      <div class="row flex-center h-100">
+        <div class="col-xl-9">
+          <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="10000">
+                <div class="row h-100 justify-content-center">
+                  <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow card-span p-3 bg-black">
+                      <div class="card-body">
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/gallery/smith.png"
+                            width="80" alt="testimonials" />
+                          <div class="flex-1 ms-4">
+                            <h6 class="fs-lg-1 mb-1 text-uppercase">amanda smith</h6>
+                          </div>
+                        </div>
+                        <p class="mb-0 mt-4 fw-light lh-lg">Nisi cumque in necessitatibus molestiae eaque excepturi ab.
+                          Laboriosam ipsam voluptatem voluptatibus labore quam nihil. Quasi occaecati quos ratione quia
+                          aut molestiae velit et.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow card-span p-3 bg-black">
+                      <div class="card-body">
+                        <div class="d-flex align-items-center"><img class="img-fluid"
+                            src="assets/img/gallery/sandra-willims.png" width="80" alt="testimonials" />
+                          <div class="flex-1 ms-4">
+                            <h6 class="fs-lg-1 mb-1 text-uppercase">Ainara Vergara</h6>
+                          </div>
+                        </div>
+                        <p class="mb-0 mt-4 fw-light lh-lg">Nisi cumque in necessitatibus molestiae eaque excepturi ab.
+                          Laboriosam ipsam voluptatem voluptatibus labore quam nihil. Quasi occaecati quos ratione quia
+                          aut molestiae velit et.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item" data-bs-interval="5000">
+                <div class="row h-100 justify-content-center">
+                  <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow card-span p-3 bg-black">
+                      <div class="card-body">
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/gallery/smith.png"
+                            width="80" alt="testimonials" />
+                          <div class="flex-1 ms-4">
+                            <h6 class="fs-lg-1 mb-1 text-uppercase">Niek Bove</h6>
+                          </div>
+                        </div>
+                        <p class="mb-0 mt-4 fw-light lh-lg">Nisi cumque in necessitatibus molestiae eaque excepturi ab.
+                          Laboriosam ipsam voluptatem voluptatibus labore quam nihil. Quasi occaecati quos ratione quia
+                          aut molestiae velit et.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow card-span p-3 bg-black">
+                      <div class="card-body">
+                        <div class="d-flex align-items-center"><img class="img-fluid"
+                            src="assets/img/gallery/sandra-willims.png" width="80" alt="testimonials" />
+                          <div class="flex-1 ms-4">
+                            <h6 class="fs-lg-1 mb-1 text-uppercase">Ainara Vergara</h6>
+                          </div>
+                        </div>
+                        <p class="mb-0 mt-4 fw-light lh-lg">Nisi cumque in necessitatibus molestiae eaque excepturi ab.
+                          Laboriosam ipsam voluptatem voluptatibus labore quam nihil. Quasi occaecati quos ratione quia
+                          aut molestiae velit et.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row h-100 justify-content-center">
+                  <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow card-span p-3 bg-black">
+                      <div class="card-body">
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/gallery/smith.png"
+                            width="80" alt="testimonials" />
+                          <div class="flex-1 ms-4">
+                            <h6 class="fs-lg-1 mb-1 text-uppercase">amanda smith</h6>
+                          </div>
+                        </div>
+                        <p class="mb-0 mt-4 fw-light lh-lg">Nisi cumque in necessitatibus molestiae eaque excepturi ab.
+                          Laboriosam ipsam voluptatem voluptatibus labore quam nihil. Quasi occaecati quos ratione quia
+                          aut molestiae velit et.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow card-span p-3 bg-black">
+                      <div class="card-body">
+                        <div class="d-flex align-items-center"><img class="img-fluid"
+                            src="assets/img/gallery/sandra-willims.png" width="80" alt="testimonials" />
+                          <div class="flex-1 ms-4">
+                            <h6 class="fs-lg-1 mb-1 text-uppercase">Ainara Vergara</h6>
+                          </div>
+                        </div>
+                        <p class="mb-0 mt-4 fw-light lh-lg">Nisi cumque in necessitatibus molestiae eaque excepturi ab.
+                          Laboriosam ipsam voluptatem voluptatibus labore quam nihil. Quasi occaecati quos ratione quia
+                          aut molestiae velit et.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5 flex-center">
+              <div class="col-auto position-relative z-index-2">
+                <ol class="carousel-indicators">
+                  <li class="active mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="0"></li>
+                  <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="1"></li>
+                  <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="2"></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of .container-->
+
+  </section>
+
+  <%- include("../../views/partials/user/footer") %>

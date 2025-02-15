@@ -1,0 +1,25 @@
+<!-- Header -->
+<%- include("../../views/partials/user/header") %>
+
+    <!-- Main Section -->
+    <section class="content-main mt-80 mb-80">
+        <link rel="stylesheet" href="/css/changeEmail.css">
+        <div class="card mx-auto card-login col-4">
+            <div class="card-body">
+                <h4 class="card-title mb-4 text-center">Email Verification</h4>
+                <form method="post" action="/changeEmail" onsubmit="return validateLoginForm()">
+                    <div class="mb-3">
+                        <input class="form-control" name="email" placeholder="Email" type="text" id="email">
+                        <div class="error-message" id="email-error"></div>
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit" class="btn btn-primary w-100">Verify</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <%- include("../../views/partials/user/footer") %>
+        <script href="/js/changeEmail.js"></script>

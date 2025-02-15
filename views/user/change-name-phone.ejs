@@ -1,0 +1,30 @@
+<%- include("../../views/partials/user/header") %>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Profile</title>
+        <link rel="stylesheet" href="/css/change-name-phone.css">
+    </head>
+
+    <body>
+        <div class="main-container">
+            <div class="form-container">
+                <h1>Edit Profile</h1>
+                <form action="/change-name-phone" method="POST">
+                    <label for="newName">New Name:</label>
+                    <input type="text" id="newName" name="newName" value="<%= user.name %>" required>
+                    <label for="newPhone">New Phone:</label>
+                    <input type="text" id="newPhone" name="newPhone" value="<%= user.phone %>" required>
+                    <button type="submit">Update</button>
+                </form>
+                <a class="change-password" href="/changePassword">Change Password</a>
+
+            </div>
+        </div>
+    </body>
+
+    </html>
+    <%- include("../../views/partials/user/footer") %>

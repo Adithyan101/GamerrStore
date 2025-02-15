@@ -1,0 +1,66 @@
+  /* General Body Styling */
+  body {
+    background-color: #000000;
+    color: #000;
+    font-family: Arial, sans-serif;
+}
+
+/* Card Styling */
+.card-login {
+    background-color: #000;
+    color: #faf7f7;
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    color: #3d3c3c;
+}
+
+/* Input Field Styling */
+.form-control {
+    background-color: #333;
+    color: #000000;
+    border: 1px solid #555;
+}
+
+.form-control::placeholder {
+    color: #080808;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #000;
+    color: #000000;
+    border: 1px solid #fff;
+}
+
+.btn-primary:hover {
+    background-color: #222;
+    border-color: #fff;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Header & Footer Styling */
+.header, .footer {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.header a, .footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header a:hover, .footer a:hover {
+    color: #aaa;
+}

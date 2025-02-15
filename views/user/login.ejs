@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<%- include("../../views/partials/user/header") %>
+
+  <body>
+    <div class="form-container">
+      <h2>Login</h2>
+      <form action="/login" method="POST">
+        <input type="email" name="email" placeholder="Email">
+
+        <!-- Password field with eye button -->
+        <div style="position: relative; display: flex; align-items: center;">
+          <input type="password" id="password" name="password" placeholder="Password"
+            style="width: 100%; padding-right: 40px;">
+          <button type="button" id="togglePassword"
+            style="position: absolute; right: 10px; background:none; border: none; cursor: pointer; color: #080808;">
+            <i class="far fa-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+
+        <% if (locals.message && message.length> 0) { %>
+          <div class="alert alert-danger text-center">
+            <%= message %>
+          </div>
+          <% } %>
+
+            <button type="submit">Login</button>
+            <p><a href="/forgot-password" class="forgot-password-link">Forgot Password?</a></p>
+            <p>Or Login With</p>
+            <div class="social-login">
+              <a href="/auth/google" class="google-btn"><i class="fab fa-google"></i></a>
+            </div>
+            <p>New Here? <a href="/signup">Sign Up</a></p>
+      </form>
+    </div>
+  </body>
+
+</html>
+
+<script>
+  // Toggle password visibility
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordField = document.getElementById('password');
+  const eyeIcon = document.getElementById('eyeIcon');
+
+  togglePassword.addEventListener('click', () => {
+    const isPasswordVisible = passwordField.getAttribute('type') === 'text';
+    passwordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
+    eyeIcon.classList.toggle('fa-eye', isPasswordVisible);
+    eyeIcon.classList.toggle('fa-eye-slash', !isPasswordVisible);
+  });
+
+  // Gmail validation
+  const loginForm = document.getElementById('loginForm');
+  const emailField = document.getElementById('email');
+
+  loginForm.addEventListener('submit', (event) => {
+    const emailValue = emailField.value.trim();
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    if (!gmailRegex.test(emailValue)) {
+      event.preventDefault(); // Prevent form submission
+      alert('Please enter a valid Gmail address.');
+    }
+  });
+</script>

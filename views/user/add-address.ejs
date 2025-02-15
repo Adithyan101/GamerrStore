@@ -1,0 +1,68 @@
+<%- include("../../views/partials/user/header") %>
+    <link rel="stylesheet" href="/css/add-address.css">
+    <div class="container mt-5" style="background-color: black; color: white; padding: 20px; border-radius: 10px;">
+        <!-- Center the heading -->
+        <h3 class="text-center mb-4">
+            Create User Address
+        </h3>
+
+        <!-- Add styling for form -->
+        <form id="addressForm" method="POST" action="/addAddress" class="p-4">
+            <div class="row mb-4">
+                <div class="page-header breadcrumb-wrap mb-3">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <a href="/" rel="nofollow">Home /</a>
+                            <span></span> Profile /<span></span> Add Address
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="addressType">Address Type:</label>
+                    <select class="form-control border-3 text-white bg-dark" id="addressType" name="addressType">
+                        <option value="" disabled selected>Select Address Type</option>
+                        <option value="home">Home</option>
+                        <option value="work">Work</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control border-3 text-white bg-dark" id="name" name="name">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="city">City:</label>
+                    <input type="text" class="form-control border-3 text-white bg-dark" id="city" name="city">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="landMark">Landmark:</label>
+                    <input type="text" class="form-control border-3 text-white bg-dark" id="landMark" name="landMark">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="state">State:</label>
+                    <input type="text" class="form-control border-3 text-white bg-dark" id="state" name="state">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="pincode">Pincode:</label>
+                    <input type="number" class="form-control border-3 text-white bg-dark" id="pincode" name="pincode">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="form-group col-md-4">
+                    <label for="phone">Phone:</label>
+                    <input type="number" class="form-control border-3 text-white bg-dark" id="phone" name="phone">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="altPhone">Alternate Phone:</label>
+                    <input type="number" class="form-control border-3 text-white bg-dark" id="altPhone" name="altPhone">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" id="submitButton" class="btn btn-primary px-5 py-2">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/add-address.js"></script>

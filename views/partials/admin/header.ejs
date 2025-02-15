@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Gamerr</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Correct link for icons -->
+    <link href="/admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://kit.fontawesome.com/16d4885483.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        .navbar {
+            background-color: #8da7ab;
+        }
+
+        .navbar-aside {
+            background-color: #b0d5de;
+        }
+
+        .menu-item a.menu-link {
+            color: #310505;
+        }
+
+        .menu-item a.menu-link:hover,
+        .menu-item a.menu-link.active {
+            background-color: #6e7e6e;
+            color: #ffffff;
+        }
+
+        .dropdown-menu {
+            background-color: #bb9aaf;
+        }
+
+        .dropdown-item:hover {
+            background-color: #33053d;
+            color: #ffffff;
+        }
+
+        /* Make sidebar collapsible */
+        @media (max-width: 768px) {
+            .navbar-aside {
+                display: none;
+                /* Hide sidebar on small screens */
+            }
+
+            .navbar-aside.open {
+                display: block;
+            }
+        }
+
+        .brand-text {
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            /* White color for text */
+            text-transform: uppercase;
+            /* Optional: for all caps */
+            padding-left: 10px;
+            /* Spacing between the logo image and the text */
+        }
+
+        .brand-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Centers both the logo and text */
+        }
+
+        .brand-text {
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            /* White color for text */
+            -webkit-text-stroke: 0.5px black;
+            /* Apply a 2px black stroke */
+            text-transform: uppercase;
+            /* Optional: for all caps */
+            padding-left: 10px;
+            /* Spacing between the logo image and the text */
+        }
+
+
+
+        .brand-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Centers both the logo and text */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="#" class="brand-wrap">
+                <span class="brand-text">Gamerr</span>
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvas_aside" aria-controls="offcanvas_aside">
+                    <i class="material-icons">menu</i>
+                </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin">
+                        <i class="material-icons">home</i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/users">
+                        <i class="material-icons">person</i>
+                        <span class="text">Customers</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/category">
+                        <i class="material-icons">category</i>
+                        <span class="text">Category</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brands">
+                        <i class="material-icons">stars</i>
+                        <span class="text">Brands</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/addProducts">
+                        <i class="material-icons">add_box</i>
+                        <span class="text">Add Product</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/products">
+                        <i class="material-icons">shopping_bag</i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/coupons">
+                        <i class="material-icons">class</i>
+                        <span class="text">Coupon</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/inventory">
+                        <i class="material-icons">inventory</i>
+                        <span class="text">Inventory</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/orders">
+                        <i class="material-icons">shopping_cart</i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar d-flex justify-content-between">
+            <div class="col-search">
+                <!-- Search bar or other elements for header can go here -->
+            </div>
+            <div class="col-nav d-flex align-items-center">
+                <button class="btn btn-icon btn-mobile" data-trigger="#offcanvas_aside">
+                    <i class="material-icons">apps</i>
+                </button>
+                <ul class="nav">
+                    <li class="dropdown nav-item">
+
+                        <a href="/admin/logout" class="btn btn-danger" style="width: 90px; color:white">Logout</a>
+
+
+                    </li>
+                </ul>
+            </div>
+        </header>

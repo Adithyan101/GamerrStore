@@ -1,0 +1,119 @@
+<%- include("../../views/partials/user/header") %>
+
+    <main class="main">
+        <link rel="stylesheet" href="/css/cart.css">
+        <section class="cart-section">
+            <div class="page-header breadcrumb-wrap mb-3">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="/" rel="nofollow">Home /</a>
+                        <span></span> My Cart <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <!-- Cart Items -->
+                    <div class="col-lg-8">
+                        <h3>My Cart (<%= products.length || 0 %>)</h3>
+                        <table class="table table-borderless align-middle cart-table">
+                            <% if (products.length> 0) { %>
+                                <% for (let product of products) { %>
+                                    <tr>
+                                        <!-- Product Image and Name -->
+                                        <td class="product-info">
+                                            <div class="d-flex align-items-center">
+                                                <img src="/uploads/re-image/<%= product.productId.productImage[0] %>"
+                                                    alt="Product Image" class="cart-product-img">
+                                                <div>
+                                                    <p class="product-name mb-1">
+                                                        <%= product.productId.productName %>
+                                                    </p>
+                                                    <span class="seller-info">Seller: <%= product.productId.sellerName
+                                                            || 'Retailer' %></span>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Delivery Info -->
+                                        <td class="delivery-info">
+                                            <p>Free delivery in 2 Days, Fri</p>
+                                        </td>
+
+                                        <!-- Product Price -->
+                                        <td class="price">
+                                            ₹<%= product.productId.salePrice %>
+                                        </td>
+
+                                        <!-- Quantity -->
+                                        <td class="quantity">
+                                            <input type="number" class="form-control text-center quantity-box"
+                                                value="<%= product.quantity %>" min="1"
+                                                data-product-id="<%= product.productId._id %>"
+                                                data-stock="<%= product.productId.quantity %>">
+
+                                        </td>
+
+                                        <!-- Subtotal -->
+                                        <td class="subtotal">₹<%= product.productId.salePrice * product.quantity %>
+                                        </td>
+
+                                        <!-- Remove Button -->
+                                        <td>
+                                            <button class="btn btn-danger remove-btn"
+                                                data-id="<%= product.productId._id %>">
+                                                Remove
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="6" class="text-center">Your cart is empty.</td>
+                                            </tr>
+                                            <% } %>
+                        </table>
+                        <div class="action-buttons">
+                            <a href="/shop" class="btn btn-outline-primary">Continue Shopping</a>
+                        </div>
+                    </div>
+
+                    <!-- Cart Summary -->
+                    <div class="col-lg-4">
+                        <div class="card cart-summary">
+                            <div class="card-body d-flex flex-column justify-content-between" style="height: 100%;">
+                                <div>
+                                    <h5 class="price-details-heading">Price Details</h5>
+                                    <div class="summary-item">
+                                        <p>Price:</p>
+                                        <p>₹<span id="totalCartPrice">
+                                                <%= totalCartPrice %>
+                                            </span></p>
+                                    </div>
+                                    <div class="summary-item">
+                                        <p>Delivery Charges:</p>
+                                        <p class="text-success">FREE</p>
+                                    </div>
+                                    <hr>
+                                    <div class="summary-item">
+                                        <p>Amount Payable:</p>
+                                        <p class="fw-bold">₹<%= totalCartPrice %>
+                                        </p>
+                                    </div>
+                                    <p class="savings-text">Your total savings on this order: ₹1,039</p>
+                                </div>
+                                <!-- Place Order Button -->
+                                <a href="/checkout"><button class="btn btn-success w-100 mt-3">Checkout</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/cart.js"></script>
+
+
+    <%- include("../../views/partials/user/footer") %>

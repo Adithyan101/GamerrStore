@@ -1,0 +1,226 @@
+<%- include("../../views/partials/user/header") %>
+
+
+
+  <div class="main-container">
+
+    <!-- cssLink -->
+    <link rel="stylesheet" href="/css/shop.css">
+
+    <section class="shop-page container">
+
+      <div class="page-header breadcrumb-wrap mb-3">
+        <div class="container">
+          <div class="breadcrumb">
+            <a href="/" rel="nofollow">Home </a>/
+            <span></span> Shop <span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="shop-topbar">
+        <div class="search-bar">
+          <form action="/search" method="POST" class="search-form">
+            <input type="text" name="query" placeholder="Search products... " class="search-input" value="<%= searchQuery ? searchQuery : '' %>" />
+            <button type="submit" class="search-button">Search</button>
+          </form>
+        </div>
+
+        <div class="sorting-dropdown">
+          <form id="sortForm" action="/search" method="POST">
+            <input type="hidden" name="query" value="<%= searchQuery ? searchQuery : '' %>">
+            <select name="sort" onchange="document.getElementById('sortForm').submit()">
+              <option value="">Sort By</option>
+              <option value="name-asc" <%= selectedSort === "name-asc" ? "selected" : "" %>>Name: A to Z</option>
+              <option value="name-desc" <%= selectedSort === "name-desc" ? "selected" : "" %>>Name: Z to A</option>
+              <option value="price-asc" <%= selectedSort === "price-asc" ? "selected" : "" %>>Price: Low to High</option>
+              <option value="price-desc" <%= selectedSort === "price-desc" ? "selected" : "" %>>Price: High to Low</option>
+            </select>
+          </form>
+        </div>
+        
+
+
+      </div>
+
+      <div class="product-list-container">
+        <aside class="sidebar">
+          <div class="filter-section">
+            <div class="filter-title">Categories</div>
+            <div class="category-brand-container">
+              <ul>
+                <% for( let i=0; i < category.length; i++ ) { %>
+                  <li class="filter-item">
+                    <a href="/filter?category=<%= category[i]._id %>">
+                      <%= category[i].name %>
+                    </a>
+                  </li>
+                  <% } %>
+              </ul>
+            </div>
+          </div>
+
+
+
+          <div class="filter-section">
+            <div class="filter-title">Brands</div>
+            <div class="category-brand-container">
+              <ul>
+                <% for( let i=0; i < brand.length; i++ ) { %>
+                  <li class="filter-item">
+                    <a href="/filter?brand=<%= brand[i]._id %>">
+                      <%= brand[i].brandName %>
+                    </a>
+                  </li>
+                  <% } %>
+              </ul>
+            </div>
+          </div>
+
+
+
+          <div class="price-filter">
+            <div class="filter-title">Filter by Price</div>
+            <form id="price-filter-form">
+              <div class="price-options">
+                <a href="/filterPrice?gt=0&lt=1000"><button type="button" class="price-button">Under ₹1000</button></a>
+                <a href="/filterPrice?gt=1000&lt=5000"><button type="button" class="price-button">₹1000 -
+                    ₹5000</button></a>
+                <a href="/filterPrice?gt=5000&lt=10000"><button type="button" class="price-button">₹5000-
+                    ₹10000</button></a>
+                <a href="/filterPrice?gt=10000&lt=50000"><button type="button" class="price-button">Above
+                    ₹10000</button></a>
+              </div>
+            </form>
+          </div>
+        </aside>
+
+
+        <main class="product-grid">
+          <% for( let i=0; i < products.length; i++ ) { %>
+            <div class="product-card">
+              <span class="wishlist-btn" onclick="addToWishlist('<%= products[i]._id %>')">🖤</span>
+              <a href="/productDetails?id=<%= products[i]._id %>">
+                <img src="/uploads/re-image/<%= products[i].productImage[0] %>" alt="<%= products[i].productName %>" />
+                <h4>
+                  <%= products[i].productName %>
+                </h4>
+                <p style="color: #fff;">Brand: <%= products[i].brand %>
+                </p>
+                <p style="color: #fff;">
+                  Price: ₹
+                  <span class="sale-price">
+                    <%= products[i].salePrice.toLocaleString('en-IN') %>
+                  </span>
+                  <span class="text-muted"><strike>₹ <%= products[i].regularPrice.toLocaleString('en-IN') %>
+                    </strike></span>
+                </p>
+              </a>
+
+              <!-- Star Ratings Section -->
+              <div class="star-rating">
+                <!-- 3 Filled Stars -->
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+
+                <!-- 2 Empty Stars -->
+                <span class="star inactive">&#9734;</span>
+                <span class="star inactive">&#9734;</span>
+              </div>
+
+              <div>
+                <% if (products[i].quantity> 0) { %>
+                  <p style="color:green;">In Stock</p>
+                  <% } else { %>
+                    <p style="color:red;">Out of Stock</p>
+                    <% } %>
+              </div>
+
+            </div>
+            <% } %>
+
+        </main>
+      </div>
+
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <% if (currentPage> 1) { %>
+          <a class="btn" href="/shop?page=<%= currentPage - 1 %>">Prev</a>
+          <% } %>
+
+
+            <% for (let i=1; i <=totalPages; i++) { %>
+              <a class="btn <%= currentPage === i ? 'active' : '' %>" href="/shop?page=<%= i %>">
+                <%= i %>
+              </a>
+              <% } %>
+
+
+                <% if (currentPage < totalPages) { %>
+                  <a class="btn" href="/shop?page=<%= currentPage + 1 %>">Next</a>
+                  <% } %>
+
+      </div>
+
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <%- include("../../views/partials/user/footer") %>
+
+
+    <script>
+      function applySorting() {
+        const sortValue = document.getElementById('sortOptions').value;
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('sort', sortValue);
+        window.location.href = currentUrl.href;
+      }
+
+      function addToWishlist(productId) {
+        $.ajax({
+          url: '/addToWishlist',
+          method: 'POST',
+          data: { productId: productId },
+          success: function (response) {
+
+
+            if (response.status === true) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Product added to wishlist',
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                window.location.reload();
+              })
+
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: response.message,
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          },
+          error: function (error) {
+            // Handle error or show an error message
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'An error occurred while adding to wishlist',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        })
+      }
+    </script>

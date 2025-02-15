@@ -1,0 +1,83 @@
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+.Maincontainer{
+    margin-top: 100px;
+}
+.contact-container {
+    max-width: 600px;
+    margin: 50px auto;
+    margin-top: 70px;
+    background: #222;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+}
+.form-control {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+.form-control:focus {
+    background: #444;
+    color: #fff;
+    border-color: #fff;
+    box-shadow: none;
+}
+.btn-custom {
+    background: #ff4c4c;
+    color: white;
+    border: none;
+}
+.btn-custom:hover {
+    background: #ff1a1a;
+}
+.breadcrumb-wrap {
+background-color: #000000;
+padding: 15px 0;
+}
+
+.breadcrumb {
+display: flex;
+align-items: center;
+font-family: 'Arial', sans-serif;
+font-size: 16px;
+color: #b0b0b0;
+}
+
+.breadcrumb a {
+color: #ffffff;
+text-decoration: none;
+position: relative;
+margin: 0 5px;
+}
+
+.breadcrumb a:hover {
+color: #b0b0b0;
+/* Light gray on hover */
+}
+
+.breadcrumb span {
+margin: 0 5px;
+color: #7a7a7a;
+/* Gray for separators */
+}
+
+.breadcrumb a::after {
+content: '';
+position: absolute;
+width: 100%;
+height: 2px;
+background: #4d4d4d;
+/* Gray underline */
+left: 0;
+bottom: -2px;
+transform: scaleX(0);
+transition: transform 0.3s ease;
+}
+
+.breadcrumb a:hover::after {
+transform: scaleX(1);
+}

@@ -1,0 +1,27 @@
+
+
+.bg-holder {
+    background-image: url('assets/img/gallery/our-store.png');
+    background-position: 20% bottom;
+    /* Moves the image slightly to the right */
+    background-size: contain;
+    /* Ensures the image is fully visible */
+    background-repeat: no-repeat;
+    /* Prevents the image from repeating */
+    background-blend-mode: multiply;
+
+    /* Makes the image blend with the background */
+    .text-primary {
+        color: #ffffff !important;
+        /* Forces white color */
+    }
+}
+
+.full-width-img {
+    width: 100%;
+    /* Makes the image take the full width of its container */
+    height: auto;
+    /* Keeps the aspect ratio intact */
+    display: block;
+    /* Removes any extra spacing around the image */
+}

@@ -1,0 +1,99 @@
+<%- include("../../views/partials/admin/header") %>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-60">
+                <form id="editBrandForm" action="/admin/editBrand" method="POST" enctype="multipart/form-data"
+                    novalidate>
+                    <input type="hidden" name="id" value="<%= brand._id %>">
+
+                    <div class="mb-4 mt-30">
+                        <label for="name">Brand Name:</label>
+                        <input type="text" id="name" name="name" value="<%= brand.brandName %>" required>
+                        <div class="text-danger small" id="nameError"></div>
+                    </div>
+
+                    <div>
+                        <label for="image">Brand Image:</label>
+                        <input type="file" id="image" name="image" accept="image/png, image/jpeg">
+                        <img src="/uploads/<%= brand.brandImage %>" alt="Current Brand Image"
+                            style="width:100px; height:auto;">
+                        <div class="text-danger small" id="imageError"></div>
+                    </div>
+
+                    <div class="d-grid text-end mt-30 ">
+                        <button class="btn btn-primary" type="submit">Update Brand</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('editBrandForm');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/admin/editBrand', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Show success popup and redirect after 2 seconds
+                    alert(result.message);
+                    setTimeout(() => {
+                        window.location.href = '/admin/brands';
+                    }, 2000);
+                } else {
+                    // Display error message as a popup
+                    alert(result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An unexpected error occurred. Please try again later.');
+            }
+        });
+
+
+
+        form.addEventListener('submit', function (event) {
+            let isValid = true;
+
+            // Validate Brand Name
+            if (nameInput.value.trim() === '') {
+                nameError.textContent = 'Brand name is required.';
+                isValid = false;
+            } else if (nameInput.value.length < 2) {
+                nameError.textContent = 'Brand name must be at least 2 characters long.';
+                isValid = false;
+            } else if (nameError.textContent !== '') {
+                isValid = false; // Prevent submission if duplicate error exists
+            }
+
+            // Validate Image
+            if (imageInput.files.length > 0) {
+                const file = imageInput.files[0];
+                const validTypes = ['image/png', 'image/jpeg'];
+                if (!validTypes.includes(file.type)) {
+                    imageError.textContent = 'Only PNG and JPEG formats are allowed.';
+                    isValid = false;
+                } else {
+                    imageError.textContent = '';
+                }
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Stop form submission
+            }
+        });
+
+
+
+    </script>
+    <%- include("../../views/partials/admin/footer") %>
