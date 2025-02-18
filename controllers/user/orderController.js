@@ -461,7 +461,7 @@ const orderHistory = async (req, res) => {
 const orderDetails = async (req, res) => {
   try {
     const user = req.session.user ?? req.session.passport.user;
-    const userId = req.session.user._id;
+    const userId = req.session.user ?? req.session.passport.user;
     const orderId = req.query.id;
     const order = await Order.findById(orderId).populate("orderItems.product");
 
