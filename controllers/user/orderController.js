@@ -494,7 +494,7 @@ const orderDetails = async (req, res) => {
     // Attach the address details to the order object
     order.addressDetails = address;
 
-    res.render("orderDetails", { order, user, cartCount, wishlistCount });
+    res.render("orderDetails", { order, userData, cartCount, wishlistCount });
   } catch (error) {
     console.error("Error showing order details:", error.message);
     // res.redirect("/pageNotFound").status(404);
