@@ -21,7 +21,7 @@ const razorpayInstance = new Razorpay({
 const getCheckoutPage = async (req, res) => {
   try {
     const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID;
-    const userId = req.session.user._id ?? req.session.passport.user;
+    const userId = req.session.user ?? req.session.passport.user;;
     const userData = await User.findById(userId);
     const cart = await Cart.findOne({ userId }).populate("products.productId");
     const wishlistCount = userData.wishlist.length;

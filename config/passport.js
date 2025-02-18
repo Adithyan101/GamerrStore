@@ -25,7 +25,7 @@ async (accessToken, refreshToken, profile, done)=>{
         }
         done(null, user);
     } catch (err) {
-        console.err("Error in Google Strategy:", error);
+        console.log("Error in Google Strategy:", err);
         done(err, null);
     }
 }
