@@ -462,11 +462,13 @@ const orderDetails = async (req, res) => {
   try {
     const user = req.session.user ?? req.session.passport.user;
     const userId = req.session.user ?? req.session.passport.user;
+    const userData = await User.findById(userId);
     const orderId = req.query.id;
     const order = await Order.findById(orderId).populate("orderItems.product");
 
-    const cartCount = await Cart.findOne({ userId }).countDocuments();
-    const wishlistCount = await Wishlist.findOne({ userId }).countDocuments();
+    const cart = await Cart.findOne({ userId: userId });
+    const cartCount = cart?.products?.reduce((total, product) => total + product.quantity, 0) || 0;
+    const wishlistCount = userData.wishlist.length
 
     if (!order) {
       return res
