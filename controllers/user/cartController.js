@@ -179,7 +179,7 @@ const removeCartItem = async (req, res) => {
 const updateCartQuantity = async (req, res) => {
   try {
     const MAX_QUANTITY = 5;
-    const userId = req.session.user._id ?? req.session.passport.user;
+    const userId = req.session.user ?? req.session.passport.user;
     const { productId, quantity } = req.body;
     console.log("productId:", productId, "quantity:", quantity);
     
