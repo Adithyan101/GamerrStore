@@ -341,7 +341,7 @@ const postEditCheckoutAddress = async (req, res) => {
 
 const postAddCheckoutAddress = async (req, res) => {
   try {
-    const userId = req.session.user._id ?? req.session.passport.user;
+    const userId = req.session.user ?? req.session.passport.user;
     const data = req.body;
     console.log("body", req.body);
 
