@@ -149,7 +149,7 @@ const addToCart = async (req, res) => {
 
 const removeCartItem = async (req, res) => {
   try {
-    const userId = req.session.user._id ?? req.session.passport.user;
+    const userId = req.session.user ?? req.session.passport.user;
     const _id = req.query.id;
 
     const cart = await Cart.findOne({ userId: userId });
