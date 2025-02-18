@@ -78,7 +78,7 @@ const getCheckoutPage = async (req, res) => {
 
 const placeOrder = async (req, res) => {
   try {
-    const userId = req.session.user._id ?? req.session.passport.user;
+    const userId = req.session.user ?? req.session.passport.user;
     let { selectedAddress, paymentMethod } = req.body;
 
     if (!paymentMethod) {
@@ -501,7 +501,7 @@ const orderDetails = async (req, res) => {
 
 const cancelOrder = async (req, res) => {
   try {
-    const userId = req.session.user;
+    const userId = req.session.user ?? req.session.passport.user;
     const id = req.query.id;
 
     // Fetch the order
@@ -577,7 +577,7 @@ const getCoupons = async (req, res) => {
 const applyCoupon = async (req, res) => {
   try {
     const { couponCode } = req.body;
-    const userId = req.session?.user?._id ?? req.session.passport.user;
+    const userId = req.session?.user ?? req.session.passport.user;
 
     if (!userId) {
       return res
@@ -720,7 +720,7 @@ const removeCoupon = async (req, res) => {
 
 const returnOrder = async (req, res) => {
   try {
-    const userId = req.session.user._id ?? req.session.passport.user;
+    const userId = req.session.user ?? req.session.passport.user;
     const { id } = req.query; // Get order ID from query string
     console.log("id", id);
 
