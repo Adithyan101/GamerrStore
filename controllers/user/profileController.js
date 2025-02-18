@@ -192,7 +192,7 @@ const postNewPassword = async (req, res) => {
 const addAddress = async (req, res) => {
   try {
 
-    const user = req.session.user;
+    const user = req.session.user ?? req.session.passport.user;
     const userData = await User.findOne({ _id: user });
     const wishlist = await Wishlist.findOne({ userId: userData._id });
     const wishlistCount = wishlist?.userData.wishlist.length || 0;
@@ -208,7 +208,7 @@ const addAddress = async (req, res) => {
 
 const postAddAddress = async (req, res) => {
   try {
-    const userId = req.session.user;
+    const userId = req.session.user ?? req.session.passport.user;
     const userData = await User.findOne({ _id: userId });
     const { addressType, name, city, landMark, state, pincode, phone } =
       req.body;
@@ -242,7 +242,7 @@ const postAddAddress = async (req, res) => {
 const editAddress = async (req, res) => {
   try {
     const addressId = req.query.id;
-    const user = req.session.user;
+    const user = req.session.user ?? req.session.passport.user;
     const cart = await Cart.findOne({ userId: user });
     const wishlist = await Wishlist.findOne({ userId: user });
     const cartCount = cart?.products?.reduce((total, product) => total + product.quantity, 0) || 0;
@@ -392,7 +392,7 @@ const verifyChangePassOtp = async (req, res) => {
 
 const getChangeNamePhonePage = async (req, res) => {
   try {
-    const userId = req.session.user;
+    const userId = req.session.user ?? req.session.passport.user;
     const userData = await User.findById(userId);
     const cart = await Cart.findOne({ userId: userId });
     const cartCount = cart?.products?.reduce((total, product) => total + product.quantity, 0) || 0;
@@ -412,7 +412,7 @@ const getChangeNamePhonePage = async (req, res) => {
 
 const postChangeNamePhone = async (req, res) => {
   try {
-    const userId = req.session.user;
+    const userId = req.session.user ?? req.session.passport.user;
     const { newName, newPhone } = req.body;
 
     if (!newName || !newPhone) {
@@ -436,7 +436,7 @@ const postChangeNamePhone = async (req, res) => {
 
 const getWalletDetails = async (req, res) => {
   try {
-    const userId = req.session.user._id;
+    const userId = req.session.user ?? req.session.passport.user;
 
     // Fetch wallet details for the user
     const wallet = await Wallet.findOne({ userId });
