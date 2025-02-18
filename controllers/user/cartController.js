@@ -67,7 +67,7 @@ const addToCart = async (req, res) => {
     const MAX_QUANTITY = 5; // Define the maximum quantity per product per user
     let { productId, quantity } = req.query;
     quantity = Number(quantity);
-    const userId = req.session.user._id;
+    const userId = req.session.user ?? req.session.passport.user;
     const product = await Product.findById(productId);
 
     if (!product) {
