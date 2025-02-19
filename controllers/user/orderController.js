@@ -778,6 +778,8 @@ const orderConfirmation = async (req, res) => {
     const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
       req.body;
 
+      const userId = req.session.user ?? req.session.passport.user;
+
     console.log("body", req.body);
 
     const secret = process.env.RAZORPAY_KEY_SECRET;
@@ -801,7 +803,7 @@ const orderConfirmation = async (req, res) => {
       console.log("order", order);
 
       await order.save();
-      await Cart.findOneAndDelete({ userId: req.session.user._id });
+      await Cart.findOneAndDelete({ userId });
 
       //render order success page
       res.render("orderConfirmation", {
