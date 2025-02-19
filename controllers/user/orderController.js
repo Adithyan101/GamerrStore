@@ -460,7 +460,7 @@ const orderHistory = async (req, res) => {
 
 const orderDetails = async (req, res) => {
   try {
-    // const user = req.session.user ?? req.session.passport.user;
+    
     const userId = req.session.user ?? req.session.passport.user;
     const userData = await User.findById(userId);
     const orderId = req.query.id;
@@ -494,7 +494,7 @@ const orderDetails = async (req, res) => {
     // Attach the address details to the order object
     order.addressDetails = address;
 
-    res.render("orderDetails", { order, userData, cartCount, wishlistCount});
+    res.render("orderDetails", { order, user:userData, cartCount, wishlistCount});
   } catch (error) {
     console.error("Error showing order details:", error.message);
     // res.redirect("/pageNotFound").status(404);
